@@ -1,0 +1,68 @@
+1)Load the Auto.csv dataset
+  Autocar = read.csv("Auto.csv", stringsAsFactors = + FALSE)
+
+2)Explore the overall structure of the dataset using str()
+  str(Autocar)
+
+3)Convert the attribute horsepower from character to integer.
+  Autocar$horsepower <- as.integer(Autocar$horsepower)
+
+4)Check for null values in horsepower and remove them
+  is.na(Autocar$horsepower)
+  colSums(is.na(Autocar))
+  Autodata <- na.omit(Autocar)
+  str(Autodata)
+
+
+5) ScatterPlot of mpg against other attributes
+ plot(x = Autodata$mpg, y = Autodata$cylinders)
+ plot(x = Autodata$mpg, y = Autodata$displacement)
+ plot(x = Autodata$mpg, y = Autodata$horsepower)
+ plot(x = Autodata$mpg, y = Autodata$weight)
+ plot(x = Autodata$mpg, y = Autodata$acceleration)
+ plot(x = Autodata$mpg, y = Autodata$year)
+ plot(x = Autodata$mpg, y = Autodata$origin)
+
+6)Add a new attribute mpg1 depending on the median value of attribute mpg
+  summary(Autodata$mpg)
+  Automedianmpg<-median(Autodata$mpg)
+  Autodata$mpg1 <- ifelse(Autodata$mpg > Automedianmpg,1,0)
+  str(Autodata)
+
+
+7)Select attribute which can be used in predicting mpg.Remove all remaining attributes, including mpg
+  Autofinal <- Autodata[c(3,4,5,6,10)]
+  str(Autofinal)
+  Autofinal
+
+8)Give seed
+  set.seed(1)
+
+9)Normalize the attribute values
+  normalize <- function(x) {return ((x - min(x)) / (max(x) - min(x)))}
+  Autonormdata <- as.data.frame(sapply(Autofinal[1:4], normalize))
+
+10)Randomize order of rows in dataset
+   Autoranddata = Autonormdata[sample(nrow(Autonormdata)),]
+
+11)Divide data into test and training set
+
+   AutoTrainData = Autoranddata[1:291, ]
+   AutoTestData = Autoranddata[292:392, ]
+
+   Autodata_trainlabels = Autofinal[1:291, 5]
+   Autodata_testlabels = Autofinal[292:392, 5]
+
+
+12)Execute kNN Algorithm
+
+library(class)
+Autodataknn <- knn(train = AutoTrainData, test = AutoTestData,cl = Autodata_trainlabels, k = 1)
+library(gmodels)
+CrossTable(x = Autodata_testlabels, y = Autodataknn, prop.chisq=FALSE)
+
+Autodataknn <- knn(train = AutoTrainData, test = AutoTestData,cl = Autodata_trainlabels, k = 3)
+Autodataknn <- knn(train = AutoTrainData, test = AutoTestData,cl = Autodata_trainlabels, k = 6)
+Autodataknn <- knn(train = AutoTrainData, test = AutoTestData,cl = Autodata_trainlabels, k = 9)
+Autodataknn <- knn(train = AutoTrainData, test = AutoTestData,cl = Autodata_trainlabels, k = 10)
+

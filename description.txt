@@ -1,0 +1,37 @@
+2. The Auto CSV dataset contains 9 variables and 397 observations.
+   The attributes have different data types. 
+   They are listed below:
+
+data.frame':   397 obs. of  9 variables:
+ $ mpg         : num  18 15 18 16 17 15 14 14 14 15 ...
+ $ cylinders   : int  8 8 8 8 8 8 8 8 8 8 ...
+ $ displacement: num  307 350 318 304 302 429 454 440 455 390 ...
+ $ horsepower  : chr  "130" "165" "150" "150" ...
+ $ weight      : int  3504 3693 3436 3433 3449 4341 4354 4312 4425 3850 ...
+ $ acceleration: num  12 11.5 11 12 10.5 10 9 8.5 10 8.5 ...
+ $ year        : int  70 70 70 70 70 70 70 70 70 70 ...
+ $ origin      : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ name        : chr  "chevrolet chevelle malibu" "buick skylark 320" "plymouth satellite" "amc rebel sst" 
+
+
+5. Investigate the association between mpg and the other features. Which of the other features seem most likely to be useful in predicting mpg.
+   Used Scatterplot for finding association.
+
+
+There are four attributes in Auto CSV dataset which are associated with changes in values of mpg.Displacement,horsepower,weight and accelaration play vital role for mpg.There is significant amount of increase and decrease of values in these four attributes.Whereas,there is no change in values of cylinders,year and origin according to mpg.
+
+Thus, for the prediction of mpg attributes displacement, horsepower, weight and acceleration would be helpful.
+
+
+7. The attributes that would be helpful in predicting mpg are:
+displacement, horsepower, weight, acceleration, and mpg1
+
+12.   k-value	 False Negative	 False Positive	   Total Error
+------------------------------------------------------------------ 
+         1              36              3               39
+         3              29              3               32
+         6              31              3               34
+         9              25              4               29
+         10             26              3               29
+
+The values 9 and 10 for K seems to perform best on the provided dataset with an lowest error of 29.
